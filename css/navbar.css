@@ -1,0 +1,56 @@
+body {
+    font-size: 2rem;
+    background-image: url("../img/mainbg.jpg");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+#main img {
+    width: 100%;
+}
+
+.container-fluid {
+    padding: 1rem 6rem;
+}
+
+#Blood {
+    width: 4%;
+    cursor: pointer;
+}
+
+#navbar-item:hover {
+    color: rgb(182, 26, 27);
+}
+
+#navbar-item {
+    color: rgba(0, 0, 0, 0.55);
+    cursor: pointer;
+}
+
+.ms-nav {
+    margin-left: 37%;
+}
+
+.nav-link {
+    font-size: 2rem;
+}
+
+#i-search {
+    margin-left: 40%;
+    font-size: 1.5rem;
+    color: rgb(109, 109, 109);
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+#i-search:hover {
+    color: rgb(182, 26, 27);
+}
+
+.invisible {
+    display: none;
+}

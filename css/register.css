@@ -1,0 +1,40 @@
+#reg {
+    text-align: left;
+    margin-left: 50%;
+    margin-right: 0;
+}
+
+#Log {
+    text-align: left;
+    margin-left: 30%;
+    margin-right: 25%;
+}
+
+h2 {
+    margin: 0;
+    margin-left: 33%;
+}
+
+form input {
+    width: 80%;
+}
+
+.Reg-form input {
+    margin: 2.5px 0;
+}
+
+.reg-btn {
+    width: 20%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-left: 30%;
+}
+
+.Log-form input {
+    margin: 10px 0;
+}
+
+#Log h2 {
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
