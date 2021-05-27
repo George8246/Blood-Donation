@@ -1,3 +1,22 @@
+.reg-head h2 {
+    float: left;
+}
+
+.reg-head .btn {
+    margin: 0;
+    width: 48%;
+}
+
+.reg-head #typebtn {
+    margin: 0 20% 0 45%;
+}
+
+.active {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+}
+
 #reg {
     text-align: left;
     margin-left: 50%;
@@ -12,7 +31,6 @@
 
 h2 {
     margin: 0;
-    margin-left: 33%;
 }
 
 form input {

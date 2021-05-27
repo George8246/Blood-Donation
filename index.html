@@ -55,19 +55,38 @@
         </section>
 
         <section id="reg" class="section invisible">
-            <h2>REGISTER</h2>
-            <form class="Reg-form">
-                <input name="userFName" type="text" placeholder="Full Name" required="" />
-                <input name="userAge" type="text" placeholder="Age" required="" />
-                <input name="userGender" type="text" placeholder="Gender(M/F)" required="" />
-                <input name="userBloodGroup" type="text" placeholder="Blood Group" required="" />
-                <input name="emailId" type="text" placeholder="Email Place" required="" />
-                <input name="userPhone" type="text" placeholder="Phone Number" required="" />
-                <input name="userPlace" type="text" placeholder="Place" required="" />
-                <input name="rusername" type="text" placeholder="User Name" required="" />
-                <input name="rpassword" type="password" placeholder="Password" required="" />
-                <dic type="button" id="regb" class="reg-btn btn btn-outline-danger">REGISTER</dic>
-            </form>
+            <div class="reg-head">
+                <h2>REGISTER</h2>
+                <div id="typebtn">
+                    <div type="button" id="DFormb" class="reg-btn active btn btn-outline-danger">Donor</div>
+                    <div type="button" id="HFormb" class="reg-btn btn btn-outline-danger">Hospital</div>
+                </div>
+            </div>
+
+            <section id="Dreg" class="section invisible">
+                <form class="Reg-form">
+                    <input name="DuserFName" type="text" placeholder="Full Name" required="" />
+                    <input name="DuserAge" type="text" placeholder="Age" required="" />
+                    <input name="DuserGender" type="text" placeholder="Gender(M/F)" required="" />
+                    <input name="DuserBloodGroup" type="text" placeholder="Blood Group" required="" />
+                    <input name="Demail" type="email" placeholder="Email Place" required="" />
+                    <input name="DuserPhone" type="text" placeholder="Phone Number" required="" />
+                    <input name="DuserPlace" type="text" placeholder="Place" required="" />
+                    <input name="Drusername" type="text" placeholder="User Name" required="" />
+                    <input name="Drpassword" type="password" placeholder="Password" required="" />
+                    <div type="button" id="Dregb" class="reg-btn btn btn-outline-danger">REGISTER</div>
+                </form>
+            </section>
+            <section id="Hreg" class="section invisible">
+                <form class="Reg-form">
+                    <input name="HuserFName" type="text" placeholder="Full Name" required="" />
+                    <input name="HuserPhone" type="text" placeholder="Phone Number" required="" />
+                    <input name="HuserPlace" type="text" placeholder="Place" required="" />
+                    <input name="Hrusername" type="text" placeholder="User Name" required="" />
+                    <input name="Hrpassword" type="password" placeholder="Password" required="" />
+                    <div type="button" id="Hregb" class="reg-btn btn btn-outline-danger">REGISTER</div>
+                </form>
+            </section>
         </section>
 
         <section id="Log" class="section invisible">
@@ -75,7 +94,7 @@
             <form class="Log-form">
                 <input name="username" type="text" placeholder="User Name" required="" />
                 <input name="password" type="password" placeholder="Password" required="" />
-                <dic type="button" id="logb" class="reg-btn btn btn-outline-danger">Log In</div>
+                <div type="button" id="logb" class="reg-btn btn btn-outline-danger">Log In</div>
             </form>
         </section>
 

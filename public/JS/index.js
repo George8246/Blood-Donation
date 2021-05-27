@@ -15,7 +15,24 @@ $("#navbar-item").click(function () {
 $("#reg-btn").click(function () {
     Hide();
     $("#reg").removeClass("invisible");
+    $("#Dreg").removeClass("invisible");
     background();
+});
+
+$("#DFormb").click(function () {
+    Hide();
+    $("#reg").removeClass("invisible");
+    $("#DFormb").addClass("active");
+    $("#Dreg").removeClass("invisible");
+    $("#HFormb").removeClass("active");
+});
+
+$("#HFormb").click(function () {
+    Hide();
+    $("#reg").removeClass("invisible");
+    $("#HFormb").addClass("active");
+    $("#Hreg").removeClass("invisible");
+    $("#DFormb").removeClass("active");
 });
 
 $("#log-btn").click(function () {

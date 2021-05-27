@@ -1,5 +1,3 @@
-var x = require("controllers/User.js");
-
 var BloodTypeSearch = $("#type");
 var BloodType;
 
@@ -8,27 +6,44 @@ $("#bt").click(function () {
     console.log(BloodType);
 });
 
-var userFName = $('input[name="userFName"]');
-var userAge = $('input[name="userAge"]');
-var userGender = $('input[name="userGender"]');
-var userBloodGroup = $('input[name="userBloodGroup"]');
-var emailId = $('input[name="emailId"]');
-var userPhone = $('input[name="userPhone"]');
-var userPlace = $('input[name="userPlace"]');
-var username = $('input[name="rusername"]');
-var password = $('input[name="rpassword"]');
+var DuserFName = $('input[name="DuserFName"]');
+var DuserAge = $('input[name="DuserAge"]');
+var DuserGender = $('input[name="DuserGender"]');
+var DuserBloodGroup = $('input[name="DuserBloodGroup"]');
+var Demail = $('input[name="Demail"]');
+var DuserPhone = $('input[name="DuserPhone"]');
+var DuserPlace = $('input[name="DuserPlace"]');
+var Dusername = $('input[name="Drusername"]');
+var Dpassword = $('input[name="Drpassword"]');
 
-$("#regb").click(function () {
-    Name = userFName.val();
-    Age = userAge.val();
-    Gender = userGender.val();
-    BloodType = userBloodGroup.val();
-    Email = emailId.val();
-    Phone = userPhone.val();
-    Place = userPlace.val();
-    UName = username.val();
-    Pass = password.val();
-    user = new User(Name, Pass, Place);
+$("#Dregb").click(function () {
+    Name = DuserFName.val();
+    Age = DuserAge.val();
+    Gender = DuserGender.val();
+    BloodType = DuserBloodGroup.val();
+    Email = Demail.val();
+    Phone = DuserPhone.val();
+    Place = DuserPlace.val();
+    UName = Dusername.val();
+    Pass = Dpassword.val();
+    type = "D";
+    postData("/", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass, type });
+});
+
+var HuserFName = $('input[name="HuserFName"]');
+var HuserPhone = $('input[name="DuserPhone"]');
+var HuserPlace = $('input[name="DuserPlace"]');
+var Husername = $('input[name="Drusername"]');
+var Hpassword = $('input[name="Drpassword"]');
+
+$("#Hregb").click(function () {
+    Name = DuserFName.val();
+    Phone = DuserPhone.val();
+    Place = DuserPlace.val();
+    UName = Dusername.val();
+    Pass = Dpassword.val();
+    type = "H";
+    postData("/", { Name, Phone, Place, UName, Pass, type });
 });
 
 var lusername = $('input[name="username"]');
@@ -39,3 +54,15 @@ $("#logb").click(function () {
     var LogPass = lpassword.val();
     user = new User(LogName, LogPass);
 });
+
+const postData = async (url, data) => {
+    const response = await fetch(url, {
+        method: "POST",
+        redirect: "follow",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+};

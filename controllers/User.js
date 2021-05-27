@@ -1,20 +1,12 @@
 class User {
-    constructor(userName, Password, Address) {
+    constructor(userName, Password, Address, database) {
         this.userName = userName;
         this.Password = Password;
         this.Address = Address;
+        this.database = database;
     }
 
-    constructor(userName, Password) {
-        this.userName = userName;
-        this.Password = Password;
-    }
+    Registration(userName, Password, Address) {}
 
-    Resistration(userName, Password, Address) {
-        
-    }
-
-    LogIN(userName, Password) {
-        
-    }
+    LogIN(userName, Password) {}
 }
