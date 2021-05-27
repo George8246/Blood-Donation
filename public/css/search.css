@@ -1,0 +1,43 @@
+.mx-search {
+    margin-left: 25%;
+}
+
+input {
+    padding: 6px 0 6px 40px;
+    margin: 3% 40%;
+    border: 1px solid #ee534f;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    outline: none;
+    width: 20%;
+    border-radius: 40px;
+    background-color: transparent;
+    margin-bottom: 10px;
+}
+
+input:hover {
+    box-shadow: 1px 1px 5px hsl(229, 6%, 66%);
+}
+input:focus {
+    box-shadow: 1px 1px 5px hsl(229, 6%, 66%);
+    border: 2px solid rgb(182, 26, 27);
+}
+
+input,
+input::-webkit-input-placeholder {
+    font-size: 20px;
+    color: rgb(0, 0, 0);
+}
+
+table {
+    color: #000;
+    border-collapse: separate;
+    border-spacing: 4rem;
+}
+
+.search-btn {
+    width: 20%;
+    padding: 10px;
+    font-size: 1rem;
+    margin-left: 40%;
+}

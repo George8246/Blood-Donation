@@ -5,17 +5,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <link rel="shortcut icon" href="img/bdrop.png" type="image/x-icon" />
+        <link rel="shortcut icon" href="img/bdrop.png" />
 
         <!-- bootstrap -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous" />
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
 
         <!-- stylesheet -->
-        <link rel="stylesheet" href="css/search.css" />
         <link rel="stylesheet" href="css/navbar.css" />
         <link rel="stylesheet" href="css/Donate.css" />
         <link rel="stylesheet" href="css/register.css" />
+        <link rel="stylesheet" href="css/search.css" />
 
         <!-- font awesome -->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -32,7 +32,8 @@
         </nav>
 
         <section id="search" class="section invisible">
-            <input type="text" placeholder="Blood Group" name="Search" />
+            <input id="type" type="text" placeholder="Blood Group" name="Search" />
+            <button id="bt" class="search-btn btn btn-outline-danger">Search</button>
             <table class="mx-search">
                 <thead>
                     <tr>
@@ -63,24 +64,23 @@
                 <input name="emailId" type="text" placeholder="Email Place" required="" />
                 <input name="userPhone" type="text" placeholder="Phone Number" required="" />
                 <input name="userPlace" type="text" placeholder="Place" required="" />
-                <input name="username" type="text" placeholder="User Name" />
-                <input name="password" type="text" placeholder="Password" />
-                <button class="reg-btn btn btn-outline-danger">REGISTER</button>
+                <input name="rusername" type="text" placeholder="User Name" required="" />
+                <input name="rpassword" type="password" placeholder="Password" required="" />
+                <dic type="button" id="regb" class="reg-btn btn btn-outline-danger">REGISTER</dic>
             </form>
         </section>
 
         <section id="Log" class="section invisible">
             <h2>LOG IN</h2>
             <form class="Log-form">
-                <input name="username" type="text" placeholder="User Name" />
-                <input name="password" type="text" placeholder="Password" />
-                <button class="reg-btn btn btn-outline-danger">Log In</button>
+                <input name="username" type="text" placeholder="User Name" required="" />
+                <input name="password" type="password" placeholder="Password" required="" />
+                <dic type="button" id="logb" class="reg-btn btn btn-outline-danger">Log In</div>
             </form>
         </section>
 
-        <div></div>
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <script src="index.js" charset="utf-8"></script>
+        <script src="JS/app.js" charset="utf-8"></script>
+        <script src="JS/index.js" charset="utf-8"></script>
     </body>
 </html>
