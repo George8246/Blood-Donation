@@ -3,7 +3,7 @@ var urlencodedParser = bodyParser.urlencoded({ extended: false }); //middileware
 
 //module export
 module.exports = (user, app, db) => {
-  app.post("/login/emp", (req, res) => {
+  app.post("/login/hos", (req, res) => {
     //variables
     const userName = req.body.hosUserName;
     const password = req.body.hosPassword;

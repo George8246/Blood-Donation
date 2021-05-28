@@ -1,18 +1,22 @@
 //module export
-module.exports = (user, app, db) => {
-    app.post("/reg/usr", (req, res) => {
+module.exports = (user, db) => {
         //variables
         const Name = user.Name;
-        const userPlace = user.Address;
-        const userName = user.userName;
-        const Password = user.Password;
-        const type = user.Type;
+        const userPlace = user.Place;
+        console.log(userPlace); 
+        const userName = user.UName;
+        console.log(userName);
+        const Password = user.Pass;
+        const Age = user.Age;
+        const Gender = user.Gender;
+        const BloodType = user.BloodType;
+        const Phone = user.Phone;
         console.log("in the database");
 
         //query
-        const sqlInsert1 = "INSERT INTO user_details (Name,userPlace) VALUES (?,?)";
+        const sqlInsert1 = "INSERT INTO user_details (userFName,userAge,userGender,userBloodGroup,userPhone,userPlace) VALUES (?,?,?,?,?,?)";
 
-        const sqlInsert2 = "INSERT INTO user_login (user_id,userName,Password) VALUES (?,?,?)";
+        const sqlInsert2 = "INSERT INTO user_login (user_id,userName,userPassword) VALUES (?,?,?)";
 
         const sqlInsert3 = "INSERT INTO user_health (user_id) VALUES(?)";
 
@@ -20,7 +24,7 @@ module.exports = (user, app, db) => {
 
         const sqlDelete2 = "DELETE FROM user_health WHERE user_id=?";
         /////
-        db.query(sqlInsert1, [Name, userPlace], (err, result) => {
+        db.query(sqlInsert1, [Name,Age,Gender,BloodType,Phone, userPlace], (err, result) => {
             if (err) console.log(err + " **ERROR  INSERTING USER** ");
             else {
                 var user_id = result.insertId;
@@ -33,11 +37,11 @@ module.exports = (user, app, db) => {
                             if (err) console.log(err);
                             else {
                                 console.log("**DELETED DUE TO DUPLICATION**");
-                                res.send({ message: "Username already exist" });
+                                console.log({ message: "Username already exist" });
                             }
                         });
                     } else {
-                        res.send({ message: "User Registration Successfull!" });
+                        console.log({ message: "User Registration Successfull!" });
                         console.log("**USER REGISTRATION SUCCESSFULL**");
                         ///////
                         db.query(sqlInsert3, [user_id], (err, result1) => {
@@ -48,11 +52,11 @@ module.exports = (user, app, db) => {
                                     if (err) console.log(err);
                                     else {
                                         console.log("**DELETED DUE TO DUPLICATION**");
-                                        res.send({ message: "Username already exist" });
+                                        console.log({ message: "Username already exist" });
                                     }
                                 });
                             } else {
-                                //res.send({ message: "User Registration Successfull!" });
+                                //console.log({ message: "User Registration Successfull!" });
                                 console.log("**USER REGISTRATION SUCCESSFULL**");
                             }
                         });
@@ -60,5 +64,4 @@ module.exports = (user, app, db) => {
                 });
             }
         });
-    });
-};
+    };

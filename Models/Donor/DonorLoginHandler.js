@@ -6,20 +6,20 @@ module.exports = (user, app, db) => {
         const userPassword = user.Password;
 
         //query
-        const sqlSelect = "SELECT * FROM login WHERE UserName = ? AND userPassword = ?";
+        const sqlSelect = "SELECT * FROM user_login WHERE userName = ? AND userPassword = ?";
 
         //
         db.query(sqlSelect, [UserName, userPassword], (err, result) => {
             if (err) {
-                res.send({ err: err });
+                console.log({ err: err });
                 console.log("**ERROR**");
             }
             /////
             if (result.length > 0) {
-                res.send(result);
+                console.log(result);
                 console.log("**RESULT SENT TO FRONT END**");
             } else {
-                res.send({ message: "wrong username/password combination!" });
+                console.log({ message: "wrong username/password combination!" });
                 console.log("**INVALID COMBINATION**");
             }
         });
