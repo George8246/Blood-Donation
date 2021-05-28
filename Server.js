@@ -1,6 +1,6 @@
-require("./controllers/User");
-require("./controllers/Donor");
-require("./controllers/Hospital");
+require("./controllers/Classes/User");
+require("./controllers/Classes/Donor");
+require("./controllers/Classes/Hospital");
 
 var mysql = require("mysql");
 var express = require("express");
@@ -48,8 +48,8 @@ app.post("/Hospital", function (req, res) {
 
     HospitalData["Phone"] = data.Phone;
 
-    user = new User(userData);
-    user.Registration(app, db);
+    hostpital = new hostpital(userData, HospitalData);
+    hostpital.Registration(app, db);
 });
 
 app.post("/Donor", function (req, res) {

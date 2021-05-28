@@ -1,5 +1,0 @@
-class Search {
-    getResult(bloodType){
-    
-    }
-}

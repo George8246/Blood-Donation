@@ -11,10 +11,10 @@ class Donor extends User {
     }
 
     Registration(app, database) {
-        UserRegisteration(this, database);
+        DonorRegisteration(this, app, database);
     }
 
     LogIN(app, database) {
-        userLoginHandler(this, database);
+        DonorLoginHandler(this, app, database);
     }
 }
