@@ -27,23 +27,23 @@ $("#Dregb").click(function () {
     UName = Dusername.val();
     Pass = Dpassword.val();
     type = "D";
-    postData("/", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass, type });
+    postData("/Donor", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass, type });
 });
 
 var HuserFName = $('input[name="HuserFName"]');
-var HuserPhone = $('input[name="DuserPhone"]');
-var HuserPlace = $('input[name="DuserPlace"]');
-var Husername = $('input[name="Drusername"]');
-var Hpassword = $('input[name="Drpassword"]');
+var HuserPhone = $('input[name="HuserPhone"]');
+var HuserPlace = $('input[name="HuserPlace"]');
+var Husername = $('input[name="Hrusername"]');
+var Hpassword = $('input[name="Hrpassword"]');
 
 $("#Hregb").click(function () {
-    Name = DuserFName.val();
-    Phone = DuserPhone.val();
-    Place = DuserPlace.val();
-    UName = Dusername.val();
-    Pass = Dpassword.val();
+    Name = HuserFName.val();
+    Phone = HuserPhone.val();
+    Place = HuserPlace.val();
+    UName = Husername.val();
+    Pass = Hpassword.val();
     type = "H";
-    postData("/", { Name, Phone, Place, UName, Pass, type });
+    postData("/Hospital", { Name, Phone, Place, UName, Pass, type });
 });
 
 var lusername = $('input[name="username"]');

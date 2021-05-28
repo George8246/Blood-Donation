@@ -1,3 +1,7 @@
+require("./controllers/User");
+require("./controllers/Donor");
+require("./controllers/Hospital");
+
 var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -5,10 +9,8 @@ var cors = require("cors");
 
 // Setup empty JS object to store user data
 userData = {};
-
-var User = require("./controllers/User");
-// var UserRegisterHandler = require("./controllers/user/UserRegisterHandler");
-// var RequestClassHandler = require("./controllers/bloodbank/RequestClassHandler");
+HospitalData = {};
+DonorData = {};
 
 //create the app
 var app = express();
@@ -27,7 +29,6 @@ var db = mysql.createPool({
     // multipleStatements: true,
 });
 
-// User(app, db);
 app.use(express.static("public"));
 app.use("/jquery", express.static(__dirname + "/node_modules/jquery/dist/"));
 
@@ -35,14 +36,40 @@ app.get("/", function (req, res) {
     res.sendFile("index.html", { root: __dirname });
 });
 
-app.post("/", function (req, res) {
+app.post("/Hospital", function (req, res) {
     let data = req.body;
     console.log(data);
-    userData["Name"] = data.newDate;
-    userData["Age"] = data.temperature;
-    userData["feelings"] = data.feelings;
-    userData["country"] = data.country;
-    userData["Content"] = data.Content;
+
+    userData["Name"] = data.Name;
+    userData["UserName"] = data.UName;
+    userData["Pass"] = data.Pass;
+    userData["Address"] = data.Place;
+    userData["Type"] = data.type;
+
+    HospitalData["Phone"] = data.Phone;
+
+    user = new User(userData);
+    user.Registration(app, db);
+});
+
+app.post("/Donor", function (req, res) {
+    let data = req.body;
+    console.log(data);
+
+    userData["Name"] = data.Name;
+    userData["UserName"] = data.UName;
+    userData["Pass"] = data.Pass;
+    userData["Address"] = data.Place;
+    userData["Type"] = data.type;
+
+    DonorData["Age"] = data.Age;
+    DonorData["Gender"] = data.Gender;
+    DonorData["BloodType"] = data.BloodType;
+    DonorData["Email"] = data.Email;
+    DonorData["Phone"] = data.Phone;
+
+    Donor = new Donor(userData, DonorData);
+    Donor.Registration(app, db);
 });
 
 app.listen(3000, (err) => {
