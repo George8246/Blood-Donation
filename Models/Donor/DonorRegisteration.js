@@ -1,34 +1,30 @@
 //module export
-module.exports = (app, db) => {
+module.exports = (user, db) => {
     app.post("/reg/usr", (req, res) => {
         //variables
-        const userFName = req.body.userFName;
-        const userAge = req.body.userAge;
-        const userGender = req.body.userGender;
-        const userBloodGroup = req.body.userBloodGroup;
-        const userPhone = req.body.userPhone;
-        const userMail = req.body.userMail;
-        const userPlace = req.body.userPlace;
-        const userUserName = req.body.userUserName;
-        const userPassword = req.body.userPassword;
+        const Name = user.Name;
+        const userPlace = user.Address;
+        const userName = user.userName;
+        const Password = user.Password;
+        const type = user.Type;
 
         //query
-        const sqlInsert1 = "INSERT INTO user_details (userFName,userAge,userGender,userBloodGroup,userPhone,userMail,userPlace) VALUES (?,?,?,?,?,?,?)";
+        const sqlInsert1 = "INSERT INTO user (Name,userPlace) VALUES (?,?)";
 
-        const sqlInsert2 = "INSERT INTO user_login (user_id,userUserName,userPassword) VALUES (?,?,?)";
+        const sqlInsert2 = "INSERT INTO login (user_id,userName,Password) VALUES (?,?,?)";
 
         const sqlInsert3 = "INSERT INTO user_health (user_id) VALUES(?)";
 
-        const sqlDelete1 = "DELETE  FROM user_details WHERE user_id= ?";
+        const sqlDelete1 = "DELETE  FROM user WHERE user_id= ?";
 
         const sqlDelete2 = "DELETE FROM user_health WHERE user_id=?";
         /////
-        db.query(sqlInsert1, [userFName, userAge, userGender, userBloodGroup, userPhone, userMail, userPlace], (err, result) => {
+        db.query(sqlInsert1, [Name, userPlace], (err, result) => {
             if (err) console.log(err + " **ERROR  INSERTING USER** ");
             else {
                 var user_id = result.insertId;
                 //////
-                db.query(sqlInsert2, [user_id, userUserName, userPassword], (err, result1) => {
+                db.query(sqlInsert2, [user_id, userName, Password], (err, result1) => {
                     if (err) {
                         console.log(err + "**ERROR INSERTING TO USER-LOGIN**");
                         //////

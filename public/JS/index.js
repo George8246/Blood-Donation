@@ -43,7 +43,7 @@ $("#log-btn").click(function () {
 
 $("#Blood").click(function () {
     Hide();
-    $("body").css("background-image", " url('img/mainbg1.png");
+    $("body").css("background-image", " url('img/mainbg.png");
 });
 
 function background() {
