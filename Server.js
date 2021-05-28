@@ -4,6 +4,7 @@ require("./controllers/Classes/Hospital");
 
 require("./Models/Donor/DonorLoginHandler");
 var DonorRegisteration = require("./Models/Donor/DonorRegisteration");
+var HospitalRegisterHandler = require("./Models/Hospital/HospitalRegisterHandler");
 
 var mysql = require("mysql");
 var express = require("express");
@@ -28,7 +29,7 @@ var db = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "password",
-    database: "bbms",
+    database: "BloodDB",
     // multipleStatements: true,
 });
 
@@ -48,10 +49,13 @@ app.post("/Hospital", function (req, res) {
     userData["Pass"] = data.Pass;
     userData["Address"] = data.Place;
     userData["Type"] = data.type;
+    userData["Phone"] = data.Phone;
 
-    HospitalData["Phone"] = data.Phone;
+    console.log("entering the database");
 
-    DonorRegisteration(userData, HospitalData, app, db);
+    HospitalRegisterHandler(app, db);
+
+    console.log("Finished");
     // const hostpital = new hostpital(userData, HospitalData);
     // hostpital.Registration(app, db);
 });
@@ -72,10 +76,22 @@ app.post("/Donor", function (req, res) {
     DonorData["Email"] = data.Email;
     DonorData["Phone"] = data.Phone;
 
-    DonorRegisteration(userData, DonorData, app, db);
+    DonorRegisteration(data, app, db);
     // const Donor = new Donor(userData, DonorData);
     // Donor.Registration(app, db);
 });
+
+const postData = async (url, data) => {
+    const response = await fetch(url, {
+        method: "POST",
+        redirect: "follow",
+        credentials: "same-origin",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+    });
+};
 
 app.listen(3000, (err) => {
     if (err) throw err;

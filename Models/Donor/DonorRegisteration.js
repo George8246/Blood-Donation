@@ -1,5 +1,5 @@
 //module export
-module.exports = (user, Doner, app, db) => {
+module.exports = (user, app, db) => {
     app.post("/reg/usr", (req, res) => {
         //variables
         const Name = user.Name;
@@ -7,15 +7,16 @@ module.exports = (user, Doner, app, db) => {
         const userName = user.userName;
         const Password = user.Password;
         const type = user.Type;
+        console.log("in the database");
 
         //query
-        const sqlInsert1 = "INSERT INTO user (Name,userPlace) VALUES (?,?)";
+        const sqlInsert1 = "INSERT INTO user_details (Name,userPlace) VALUES (?,?)";
 
-        const sqlInsert2 = "INSERT INTO login (user_id,userName,Password) VALUES (?,?,?)";
+        const sqlInsert2 = "INSERT INTO user_login (user_id,userName,Password) VALUES (?,?,?)";
 
         const sqlInsert3 = "INSERT INTO user_health (user_id) VALUES(?)";
 
-        const sqlDelete1 = "DELETE  FROM user WHERE user_id= ?";
+        const sqlDelete1 = "DELETE  FROM user_details WHERE user_id= ?";
 
         const sqlDelete2 = "DELETE FROM user_health WHERE user_id=?";
         /////
