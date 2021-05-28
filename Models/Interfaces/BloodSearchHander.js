@@ -1,27 +1,21 @@
 //module export
-module.exports = (user, app, db) => {
-    app.post("/login/usr", (req, res) => {
-        //variables
-        const UserName = user.userName;
-        const userPassword = user.Password;
+module.exports = (user, db) => {
+    //variables
+    const blood = user.Search;
 
-        //query
-        const sqlSelect = "SELECT * FROM BloodStock WHERE UserName = ? AND userPassword = ?";
+    const sqlSelect = "SELECT * FROM blood_stocks WHERE blood_group = ?";
 
-        //
-        db.query(sqlSelect, [UserName, userPassword], (err, result) => {
-            if (err) {
-                res.send({ err: err });
-                console.log("**ERROR**");
-            }
-            /////
-            if (result.length > 0) {
-                res.send(result);
-                console.log("**RESULT SENT TO FRONT END**");
-            } else {
-                res.send({ message: "wrong username/password combination!" });
-                console.log("**INVALID COMBINATION**");
-            }
-        });
+    //
+    db.query(sqlSelect, [blood], (err, result) => {
+        if (err) {
+            console.log("**   SEARCH ERROR   **" + err);
+        }
+
+        if (result.length > 0) {
+            console.log(result);
+            console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
+        } else {
+            console.log({ message: "NO SEARCH RESULTS FOUND!" });
+        }
     });
 };

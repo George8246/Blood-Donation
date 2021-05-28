@@ -64,16 +64,20 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
-    // updateUI();
 });
 
 $("#Hlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogHospital", { LogName, LogPass });
-    // setTimeout(function () {
-    //     updateUI();
-    // }, 500);
+});
+
+var s = $('input[name="Search"]');
+
+$("#searchbtn").click(function () {
+    var Search = s.val();
+
+    postData("/Search", { Search });
 });
 
 const postData = async (url, data) => {

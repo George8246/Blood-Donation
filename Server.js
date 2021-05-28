@@ -13,6 +13,9 @@ var HospitalLoginHandler = require("./Models/Hospital/HospitalLoginHandler");
 // Add Post
 var AddPostHander = require("./Models/Interfaces/AddPostHander");
 
+//Search Blood Type
+var BloodSearchHander = require("./Models/Interfaces/BloodSearchHander");
+
 var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -74,11 +77,15 @@ app.post("/AddHospital", function (req, res) {
 app.post("/LogHospital", function (req, res) {
     let data = req.body;
 
-    console.log("the method returns: " + HospitalLoginHandler(data, database));
-    // setTimeout(function () {
-    //     console.log("Finish the log in");
-    //     console.log("the boolean value: " + logedin);
-    // }, 500);
+    HospitalLoginHandler(data, database);
+});
+
+app.post("/Search", function (req, res) {
+    let data = req.body;
+
+    console.log(data);
+
+    BloodSearchHander(data, database);
 });
 
 app.get("/all", function (req, res) {
