@@ -91,11 +91,18 @@
         </section>
 
         <section id="Log" class="section invisible">
-            <h2>LOG IN</h2>
+            <div class="reg-head">
+                <h2>LOG IN</h2>
+                <div id="typebtn">
+                    <div type="button" id="DlFormb" class="reg-btn active btn btn-outline-danger">Donor</div>
+                    <div type="button" id="HlFormb" class="reg-btn btn btn-outline-danger">Hospital</div>
+                </div>
+            </div>
             <form class="Log-form">
                 <input name="username" type="text" placeholder="User Name" required="" />
                 <input name="password" type="password" placeholder="Password" required="" />
-                <div type="button" id="logb" class="reg-btn btn btn-outline-danger">Log In</div>
+                <div type="button" id="Dlogb" class="reg-btn btn btn-outline-danger">Log In</div>
+                <div type="button" id="Hlogb" class="invisible reg-btn btn btn-outline-danger">Log In</div>
             </form>
         </section>
 

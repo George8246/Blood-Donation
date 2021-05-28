@@ -49,10 +49,16 @@ $("#Hregb").click(function () {
 var lusername = $('input[name="username"]');
 var lpassword = $('input[name="password"]');
 
-$("#logb").click(function () {
+$("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
-    user = new User(LogName, LogPass);
+    postData("/LogDonor", { LogName, LogPass });
+});
+
+$("#Hlogb").click(function () {
+    var LogName = lusername.val();
+    var LogPass = lpassword.val();
+    postData("/LogHospital", { LogName, LogPass });
 });
 
 const postData = async (url, data) => {

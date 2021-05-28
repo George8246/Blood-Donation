@@ -35,6 +35,24 @@ $("#HFormb").click(function () {
     $("#DFormb").removeClass("active");
 });
 
+$("#DlFormb").click(function () {
+    Hide();
+    $("#Log").removeClass("invisible");
+    $("#DlFormb").addClass("active");
+    $("#Dlogb").removeClass("invisible");
+    $("#Hlogb").addClass("invisible");
+    $("#HlFormb").removeClass("active");
+});
+
+$("#HlFormb").click(function () {
+    Hide();
+    $("#Log").removeClass("invisible");
+    $("#HlFormb").addClass("active");
+    $("#Hlogb").removeClass("invisible");
+    $("#Dlogb").addClass("invisible");
+    $("#DlFormb").removeClass("active");
+});
+
 $("#log-btn").click(function () {
     Hide();
     $("#Log").removeClass("invisible");

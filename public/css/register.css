@@ -25,6 +25,7 @@
 
 #Log {
     text-align: left;
+    margin-top: 30px;
     margin-left: 30%;
     margin-right: 25%;
 }
@@ -48,11 +49,16 @@ form input {
     margin-left: 30%;
 }
 
+.Log-form {
+    margin-top: 20px;
+}
+
 .Log-form input {
     margin: 10px 0;
 }
 
 #Log h2 {
-    margin-top: 90px;
+    float: left;
+    margin-top: 10px;
     margin-bottom: 20px;
 }

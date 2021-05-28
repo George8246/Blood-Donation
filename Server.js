@@ -2,9 +2,13 @@ require("./controllers/Classes/User");
 require("./controllers/Classes/Donor");
 require("./controllers/Classes/Hospital");
 
-require("./Models/Donor/DonorLoginHandler");
+// Donor Handler
+var DonorLoginHandler = require("./Models/Donor/DonorLoginHandler");
 var DonorRegisteration = require("./Models/Donor/DonorRegisteration");
+
+// Hospital Handler
 var HospitalRegisterHandler = require("./Models/Hospital/HospitalRegisterHandler");
+var HospitalLoginHandler = require("./Models/Hospital/HospitalLoginHandler");
 
 var mysql = require("mysql");
 var express = require("express");
@@ -25,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 
 //config for database
-var db = mysql.createPool({
+var database = mysql.createPool({
     host: "localhost",
     user: "root",
     password: "",
@@ -53,11 +57,11 @@ app.post("/Hospital", function (req, res) {
 
     console.log("entering the database");
 
-    HospitalRegisterHandler(data, db);
+    HospitalRegisterHandler(data, database);
 
     console.log("Finished");
     // const hostpital = new hostpital(userData, HospitalData);
-    // hostpital.Registration(app, db);
+    // hostpital.Registration(app, database);
 });
 
 app.post("/Donor", function (req, res) {
@@ -76,22 +80,24 @@ app.post("/Donor", function (req, res) {
     DonorData["Email"] = data.Email;
     DonorData["Phone"] = data.Phone;
 
-    DonorRegisteration(data, db);
+    DonorRegisteration(data, database);
     // const Donor = new Donor(userData, DonorData);
-    // Donor.Registration(app, db);
+    // Donor.Registration(app, database);
 });
 
-const postData = async (url, data) => {
-    const response = await fetch(url, {
-        method: "POST",
-        redirect: "follow",
-        credentials: "same-origin",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-    });
-};
+app.post("/LogDonor", function (req, res) {
+    let data = req.body;
+    console.log(data);
+
+    DonorLoginHandler(data, database);
+});
+
+app.post("/LogHospital", function (req, res) {
+    let data = req.body;
+    console.log(data);
+
+    HospitalLoginHandler(data, database);
+});
 
 app.listen(3000, (err) => {
     if (err) throw err;
