@@ -10,18 +10,19 @@ var DonorRegisteration = require("./Models/Donor/DonorRegisteration");
 var HospitalRegisterHandler = require("./Models/Hospital/HospitalRegisterHandler");
 var HospitalLoginHandler = require("./Models/Hospital/HospitalLoginHandler");
 
+// Add Post
+var AddPostHander = require("./Models/Interfaces/AddPostHander");
+
 var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
 var cors = require("cors");
-
-// Setup empty JS object to store user data
-userData = {};
-HospitalData = {};
-DonorData = {};
+const { post } = require("jquery");
 
 //create the app
 var app = express();
+
+var logedin;
 
 // middilewares set app to use the body-parser
 app.use(cors());
@@ -48,55 +49,41 @@ app.post("/Hospital", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    userData["Name"] = data.Name;
-    userData["UserName"] = data.UName;
-    userData["Pass"] = data.Pass;
-    userData["Address"] = data.Place;
-    userData["Type"] = data.type;
-    userData["Phone"] = data.Phone;
-
-    console.log("entering the database");
-
     HospitalRegisterHandler(data, database);
-
-    console.log("Finished");
-    // const hostpital = new hostpital(userData, HospitalData);
-    // hostpital.Registration(app, database);
 });
 
 app.post("/Donor", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    userData["Name"] = data.Name;
-    userData["UserName"] = data.UName;
-    userData["Pass"] = data.Pass;
-    userData["Address"] = data.Place;
-    userData["Type"] = data.type;
-
-    DonorData["Age"] = data.Age;
-    DonorData["Gender"] = data.Gender;
-    DonorData["BloodType"] = data.BloodType;
-    DonorData["Email"] = data.Email;
-    DonorData["Phone"] = data.Phone;
-
     DonorRegisteration(data, database);
-    // const Donor = new Donor(userData, DonorData);
-    // Donor.Registration(app, database);
 });
 
 app.post("/LogDonor", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    DonorLoginHandler(data, database);
+    logedin = DonorLoginHandler(data, database);
 });
 
+app.post("/AddHospital", function (req, res) {
+    let data = req.body;
+
+    AddPostHander(data, database);
+});
 app.post("/LogHospital", function (req, res) {
     let data = req.body;
-    console.log(data);
 
-    HospitalLoginHandler(data, database);
+    console.log("the method returns: " + HospitalLoginHandler(data, database));
+    // setTimeout(function () {
+    //     console.log("Finish the log in");
+    //     console.log("the boolean value: " + logedin);
+    // }, 500);
+});
+
+app.get("/all", function (req, res) {
+    // console.log(logedin);
+    res.send(logedin);
 });
 
 app.listen(3000, (err) => {

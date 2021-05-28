@@ -1,9 +1,5 @@
 body {
     font-size: 2rem;
-    background-image: url("../img/mainbg.png");
-    background-size: 100% 100%;
-    background-position: center;
-    background-repeat: no-repeat;
     height: 100vh;
     margin: 0;
     padding: 0;
@@ -39,8 +35,19 @@ body {
     font-size: 2rem;
 }
 
-#i-search {
+#addIcon {
     margin-left: 40%;
+    transition: 0.5s;
+    color: rgb(109, 109, 109);
+    cursor: pointer;
+}
+
+#addIcon:hover {
+    color: rgb(182, 26, 27);
+}
+
+#i-search {
+    margin-left: 10px;
     font-size: 1.5rem;
     color: rgb(109, 109, 109);
     transition: 0.5s;

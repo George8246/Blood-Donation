@@ -1,3 +1,10 @@
+body {
+    background-image: url("../img/mainbg.png");
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 .btn {
     width: 15%;
     padding: 30px 0px;

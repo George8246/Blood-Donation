@@ -26,8 +26,7 @@ $("#Dregb").click(function () {
     Place = DuserPlace.val();
     UName = Dusername.val();
     Pass = Dpassword.val();
-    type = "D";
-    postData("/Donor", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass, type });
+    postData("/Donor", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass });
 });
 
 var HuserFName = $('input[name="HuserFName"]');
@@ -42,8 +41,20 @@ $("#Hregb").click(function () {
     Place = HuserPlace.val();
     UName = Husername.val();
     Pass = Hpassword.val();
-    type = "H";
-    postData("/Hospital", { Name, Phone, Place, UName, Pass, type });
+    postData("/Hospital", { Name, Phone, Place, UName, Pass });
+});
+
+var AdduserFName = $('input[name="HAddFName"]');
+var AdduserPhone = $('input[name="HAddPhone"]');
+var AdduserPlace = $('input[name="HAddPlace"]');
+var HAddBloodType = $('input[name="HAddBloodType"]');
+
+$("#HAddb").click(function () {
+    Name = AdduserFName.val();
+    Phone = AdduserPhone.val();
+    Place = AdduserPlace.val();
+    AddType = HAddBloodType.val();
+    postData("/AddHospital", { Name, Phone, Place, AddType });
 });
 
 var lusername = $('input[name="username"]');
@@ -53,12 +64,16 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
+    // updateUI();
 });
 
 $("#Hlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogHospital", { LogName, LogPass });
+    // setTimeout(function () {
+    //     updateUI();
+    // }, 500);
 });
 
 const postData = async (url, data) => {
@@ -72,3 +87,9 @@ const postData = async (url, data) => {
         body: JSON.stringify(data),
     });
 };
+
+// const updateUI = async () => {
+//     const req = await fetch("/all");
+//     const data = await req.json();
+//     console.log(data);
+// };

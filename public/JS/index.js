@@ -44,6 +44,12 @@ $("#DlFormb").click(function () {
     $("#HlFormb").removeClass("active");
 });
 
+$("#addIcon").click(function () {
+    Hide();
+    $("#addPost").removeClass("invisible");
+    background();
+});
+
 $("#HlFormb").click(function () {
     Hide();
     $("#Log").removeClass("invisible");
