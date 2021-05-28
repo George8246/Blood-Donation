@@ -1,5 +1,5 @@
 //module export
-module.exports = (user, db) => {
+module.exports = (user, Doner, app, db) => {
     app.post("/reg/usr", (req, res) => {
         //variables
         const Name = user.Name;
@@ -36,8 +36,8 @@ module.exports = (user, db) => {
                             }
                         });
                     } else {
-                        //res.send({ message: "User Registration Successfull!" });
-                        //console.log("**USER REGISTRATION SUCCESSFULL**");
+                        res.send({ message: "User Registration Successfull!" });
+                        console.log("**USER REGISTRATION SUCCESSFULL**");
                         ///////
                         db.query(sqlInsert3, [user_id], (err, result1) => {
                             if (err) {

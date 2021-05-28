@@ -2,6 +2,9 @@ require("./controllers/Classes/User");
 require("./controllers/Classes/Donor");
 require("./controllers/Classes/Hospital");
 
+require("./Models/Donor/DonorLoginHandler");
+var DonorRegisteration = require("./Models/Donor/DonorRegisteration");
+
 var mysql = require("mysql");
 var express = require("express");
 var bodyParser = require("body-parser");
@@ -48,8 +51,9 @@ app.post("/Hospital", function (req, res) {
 
     HospitalData["Phone"] = data.Phone;
 
-    hostpital = new hostpital(userData, HospitalData);
-    hostpital.Registration(app, db);
+    DonorRegisteration(userData, HospitalData, app, db);
+    // const hostpital = new hostpital(userData, HospitalData);
+    // hostpital.Registration(app, db);
 });
 
 app.post("/Donor", function (req, res) {
@@ -68,8 +72,9 @@ app.post("/Donor", function (req, res) {
     DonorData["Email"] = data.Email;
     DonorData["Phone"] = data.Phone;
 
-    Donor = new Donor(userData, DonorData);
-    Donor.Registration(app, db);
+    DonorRegisteration(userData, DonorData, app, db);
+    // const Donor = new Donor(userData, DonorData);
+    // Donor.Registration(app, db);
 });
 
 app.listen(3000, (err) => {

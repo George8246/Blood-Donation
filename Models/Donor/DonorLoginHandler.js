@@ -6,7 +6,7 @@ module.exports = (user, app, db) => {
         const userPassword = user.Password;
 
         //query
-        const sqlSelect = "SELECT * FROM user_login WHERE UserName = ? AND userPassword = ?";
+        const sqlSelect = "SELECT * FROM login WHERE UserName = ? AND userPassword = ?";
 
         //
         db.query(sqlSelect, [UserName, userPassword], (err, result) => {

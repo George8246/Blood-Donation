@@ -18,3 +18,5 @@ class Donor extends User {
         DonorLoginHandler(this, app, database);
     }
 }
+
+module.exports = Donor;
