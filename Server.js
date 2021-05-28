@@ -28,7 +28,7 @@ app.use(express.json());
 var db = mysql.createPool({
     host: "localhost",
     user: "root",
-    password: "password",
+    password: "",
     database: "BloodDB",
     // multipleStatements: true,
 });
@@ -53,7 +53,7 @@ app.post("/Hospital", function (req, res) {
 
     console.log("entering the database");
 
-    HospitalRegisterHandler(app, db);
+    HospitalRegisterHandler(data, db);
 
     console.log("Finished");
     // const hostpital = new hostpital(userData, HospitalData);
@@ -76,7 +76,7 @@ app.post("/Donor", function (req, res) {
     DonorData["Email"] = data.Email;
     DonorData["Phone"] = data.Phone;
 
-    DonorRegisteration(data, app, db);
+    DonorRegisteration(data, db);
     // const Donor = new Donor(userData, DonorData);
     // Donor.Registration(app, db);
 });
