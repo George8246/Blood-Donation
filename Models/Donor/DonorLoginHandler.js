@@ -1,5 +1,5 @@
 //module export
-module.exports = (user, app, db) => {
+module.exports = (user, db) => {
     //variables
     const UserName = user.LogName;
     const userPassword = user.LogPass;

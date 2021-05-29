@@ -66,7 +66,7 @@ app.post("/LogDonor", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    logedin = DonorLoginHandler(data, database);
+    DonorLoginHandler(data, database);
 });
 
 app.post("/AddHospital", function (req, res) {
@@ -79,11 +79,7 @@ app.post("/AddHospital", function (req, res) {
 app.post("/LogHospital", function (req, res) {
     let data = req.body;
 
-    const hostpital = new hostpital(data);
-
-    hospital.hostpital.LogIN(data, database);
-
-    // HospitalLoginHandler(data, database);
+    HospitalLoginHandler(data, database);
 });
 /********************************************************************************************************************************************************************/
 
