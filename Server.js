@@ -1,6 +1,6 @@
-require("./controllers/Classes/User");
-require("./controllers/Classes/Donor");
-require("./controllers/Classes/Hospital");
+var user = require("./controllers/Classes/User");
+var donor = require("./controllers/Classes/Donor");
+var hospital = require("./controllers/Classes/Hospital");
 
 // Donor Handler
 var DonorLoginHandler = require("./Models/Donor/DonorLoginHandler");
@@ -74,11 +74,18 @@ app.post("/AddHospital", function (req, res) {
 
     AddPostHander(data, database);
 });
+
+/*********************************************************************************************************************************************************************/
 app.post("/LogHospital", function (req, res) {
     let data = req.body;
 
-    HospitalLoginHandler(data, database);
+    const hostpital = new hostpital(data);
+
+    hospital.hostpital.LogIN(data, database);
+
+    // HospitalLoginHandler(data, database);
 });
+/********************************************************************************************************************************************************************/
 
 app.post("/Search", function (req, res) {
     let data = req.body;
@@ -88,8 +95,8 @@ app.post("/Search", function (req, res) {
     BloodSearchHander(data, database);
 });
 
-app.get("/all", function (req, res) {
-    // console.log(logedin);
+app.get("/log", function (req, res) {
+    console.log(logedin);
     res.send(logedin);
 });
 
@@ -97,3 +104,5 @@ app.listen(3000, (err) => {
     if (err) throw err;
     else console.log("listening to port : 3000");
 });
+
+module.exports = app;

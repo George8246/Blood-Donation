@@ -1,16 +1,16 @@
 var User = require("./User.js");
 
-class hostpital extends User {
-    constructor(UD, HD) {
+module.exports = class hostpital extends User {
+    constructor(data) {
         super(UD);
         this.HosNumber = HD.Phone;
     }
 
-    Registration(app, database) {
-        DonorRegisteration(this, app, database);
+    Registration(data, database) {
+        HostpitalRegisteration(data, database);
     }
 
-    LogIN(app, database) {
-        DonorLoginHandler(this, app, database);
+    LogIN(data, database) {
+        HospitalLoginHandler(data, database);
     }
-}
+};
