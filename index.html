@@ -56,14 +56,50 @@
             <button id="Delete-btn" type="button" class="btn btn-outline-danger">Delete Post</button>
         </section>
 
-        <section id="addPost" class="section invisible">
+        <section id="addPost" class="post section invisible">
             <form class="Reg-form">
                 <input name="HAddFName" type="text" placeholder="Full Name" required="" />
                 <input name="HAddPhone" type="text" placeholder="Phone Number" required="" />
                 <input name="HAddPlace" type="text" placeholder="Place" required="" />
                 <input name="HAddBloodType" type="text" placeholder="Blood Type" required="" />
-                <div type="button" id="HAddb" class="reg-btn btn btn-outline-danger">ADD</div>
+                <div type="button" id="HAdb" class="reg-btn btn btn-outline-danger">ADD</div>
                 <div id="AddMass"></div>
+            </form>
+        </section>
+
+        <section id="DeletePost" class="post section invisible">
+            <form class="Reg-form">
+                <input name="HDFName" type="text" placeholder="Full Name" required="" />
+                <input name="HDPhone" type="text" placeholder="Phone Number" required="" />
+                <input name="HDPlace" type="text" placeholder="Place" required="" />
+                <input name="HDBloodType" type="text" placeholder="Blood Type" required="" />
+                <div type="button" id="HDeleteb" class="reg-btn btn btn-outline-danger">DELETE</div>
+                <div id="DeleteMass"></div>
+            </form>
+        </section>
+
+        <section id="ModifyPost" class="post section invisible">
+            <form class="Reg-form">
+                <input name="HMoFName" type="text" placeholder="Full Name" required="" />
+                <input name="HMoPhone" type="text" placeholder="Phone Number" required="" />
+                <input name="HMoPlace" type="text" placeholder="Place" required="" />
+                <input name="HMoBloodType" type="text" placeholder="Blood Type" required="" />
+                <div type="button" id="HModifyb" class="reg-btn btn btn-outline-danger">MODIFY</div>
+                <div id="ModifyMass"></div>
+            </form>
+        </section>
+
+        <section id="ChooseModifyPost" class="post section invisible">
+            <form class="Reg-form">
+                <select id="CM">
+                    <option value="Name">UserName</option>
+                    <option value="Phone">phone</option>
+                    <option value="Place">Place</option>
+                    <option value="blood_group">Needed Blood</option>
+                </select>
+                <input name="HMBloodType" type="text" placeholder="Place a value to change" required="" />
+                <div type="button" id="HMOb" class="reg-btn btn btn-outline-danger">MODIFY</div>
+                <div id="MODMass"></div>
             </form>
         </section>
 

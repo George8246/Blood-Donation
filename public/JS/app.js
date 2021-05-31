@@ -46,6 +46,26 @@ $("#Hregb").click(function () {
     setTimeout(HospitalRegUI, 250); //wait 2 seconds
 });
 
+var HMoFName = $('input[name="HMoFName"]');
+var HMoPhone = $('input[name="HMoPhone"]');
+var HMoPlace = $('input[name="HMoPlace"]');
+var HMoBloodType = $('input[name="HMoBloodType"]');
+
+$("#HModifyb").click(function () {
+    newName = HMoFName.val();
+    newPhone = HMoPhone.val();
+    newPlace = HMoPlace.val();
+    newSearch = HMoBloodType.val();
+    postData("/Modify", { newName, newPhone, newPlace, newSearch });
+    setTimeout(ModifyPostUI, 250);
+});
+
+$("#HMOb").click(function () {
+    value = $("#CM").val();
+    postData("/Modify", { value });
+    setTimeout(optionPostUI, 250);
+});
+
 var AdduserFName = $('input[name="HAddFName"]');
 var AdduserPhone = $('input[name="HAddPhone"]');
 var AdduserPlace = $('input[name="HAddPlace"]');
@@ -232,6 +252,36 @@ const AddPostUI = async () => {
     $("#AM").css("color", "green");
 };
 
+const ModifyPostUI = async () => {
+    const req = await fetch("/ModifyG");
+    const data = await req.json();
+    console.log(data);
+    let stat = data.stat;
+    $("#MM").remove();
+    $("#ModifyMass").append("<h1 id='MM'>" + stat + "</h1>");
+    $("#AM").css("color", "green");
+    if (data.b) {
+        Hide();
+        ShowModify();
+        background();
+    }
+};
+
+const optionPostUI = async () => {
+    const req = await fetch("/ModifyG");
+    const data = await req.json();
+    console.log(data);
+    let stat = data.stat;
+    $("#MM").remove();
+    $("#ModifyMass").append("<h1 id='MM'>" + stat + "</h1>");
+    $("#AM").css("color", "green");
+    if (data.b) {
+        Hide();
+        ShowModify();
+        background();
+    }
+};
+
 /********************************************Design********************************************/
 
 var sections = document.getElementsByClassName("section");
@@ -292,6 +342,18 @@ $("#Add-btn").click(function () {
     background();
 });
 
+$("#Modify-btn").click(function () {
+    Hide();
+    $("#ModifyPost").removeClass("invisible");
+    background();
+});
+
+$("#Delete-btn").click(function () {
+    Hide();
+    $("#DeletePost").removeClass("invisible");
+    background();
+});
+
 $("#HlFormb").click(function () {
     Hide();
     ShowHospital();
@@ -338,4 +400,8 @@ function ShowDonor() {
     $("#HlFormb").removeClass("active");
     $("#logSuccess").addClass("invisible");
     $("#logFailed").addClass("invisible");
+}
+
+function ShowModify() {
+    $("#ChooseModifyPost").removeClass("invisible");
 }

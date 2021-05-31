@@ -2,3 +2,25 @@
     padding-top: 10%;
     text-align: center;
 }
+
+.post {
+    text-align: left;
+    margin-left: 50%;
+    margin-right: 0;
+    margin-top: 30px;
+}
+
+#CM {
+    margin-left: 27%;
+    border-radius: 10%;
+}
+
+#CM:focus {
+    border-color: rgb(182, 26, 27);
+    background-color: rgb(182, 26, 27);
+}
+
+#CM:hover {
+    border-color: rgb(182, 26, 27);
+    background-color: rgb(182, 26, 27);
+}
