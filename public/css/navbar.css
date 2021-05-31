@@ -5,6 +5,16 @@ body {
     padding: 0;
 }
 
+#welcome {
+    margin-left: 28%;
+    transition: 0.5s;
+    color: rgb(109, 109, 109);
+}
+
+#welcome:hover {
+    color: rgb(182, 26, 27);
+}
+
 #main img {
     width: 100%;
 }

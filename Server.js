@@ -125,7 +125,6 @@ app.get("/hosReg", function (req, res) {
 
 app.post("/Donor", function (req, res) {
     let data = req.body;
-    console.log(data);
 
     DonorRegister(data);
     function DonorRegister(user) {
@@ -160,9 +159,9 @@ app.post("/Donor", function (req, res) {
                         database.query(sqlDelete1, [user_id], (err, result2) => {
                             if (err) {
                                 console.log(err);
-                                donorReg["error"] = err;
+                                donorReg["stat"] = err;
                             } else {
-                                donorReg["Username already exist"] = err;
+                                donorReg["stat"] = "Username already exist";
                                 console.log("**DELETED DUE TO DUPLICATION**");
                                 res.send({ message: "Username already exist" });
                             }
@@ -197,7 +196,6 @@ app.get("/Donor", function (req, res) {
 
 app.post("/LogDonor", function (req, res) {
     let data = req.body;
-    // console.log(data);
 
     DLogin(data);
 
@@ -220,7 +218,7 @@ app.post("/LogDonor", function (req, res) {
             /////
             if (result.length > 0) {
                 donorLogin["b"] = true;
-                console.log("in post");
+                donorLogin["DonorName"] = user.LogName;
                 console.log("**RESULT SENT TO FRONT END**");
             } else {
                 // res.send({ message: "wrong username/password combination!" });
@@ -294,6 +292,7 @@ app.post("/LogHospital", function (req, res) {
             if (result.length > 0) {
                 console.log("**RESULT SENT TO FRONT END**");
                 hosLogin["b"] = true;
+                hosLogin["HosName"] = user.LogName;
             } else {
                 // console.log({ message: "wrong username/password combination!" });
                 hosLogin["b"] = false;
