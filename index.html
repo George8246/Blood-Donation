@@ -16,6 +16,7 @@
         <link rel="stylesheet" href="css/Donate.css" />
         <link rel="stylesheet" href="css/register.css" />
         <link rel="stylesheet" href="css/search.css" />
+        <link rel="stylesheet" href="css/Post.css" />
 
         <!-- font awesome -->
         <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous" />
@@ -29,7 +30,7 @@
                 <li id="navbar-item" class="nav-item">Register/Login</li>
             </ul>
             <div id="welcome" class="invisible"></div>
-            <i id="addIcon" class="invisible fas fa-plus-square"></i>
+            <i id="addIcon" class="fas fa-plus-square"></i>
             <i id="i-search" class="fas fa-search"></i>
         </nav>
 
@@ -47,6 +48,12 @@
                 </thead>
                 <tbody></tbody>
             </table>
+        </section>
+
+        <section id="Post" class="section invisible">
+            <button id="Add-btn" type="button" class="btn btn-outline-danger">Add Post</button>
+            <button id="Modify-btn" type="button" class="btn btn-outline-danger">Modify Post</button>
+            <button id="Delete-btn" type="button" class="btn btn-outline-danger">Delete Post</button>
         </section>
 
         <section id="addPost" class="section invisible">
@@ -86,6 +93,7 @@
                     <input name="Drusername" type="text" placeholder="User Name" required="" />
                     <input name="Drpassword" type="password" placeholder="Password" required="" />
                     <div type="button" id="Dregb" class="reg-btn btn btn-outline-danger">REGISTER</div>
+                    <div id="DregMass"></div>
                 </form>
             </section>
 

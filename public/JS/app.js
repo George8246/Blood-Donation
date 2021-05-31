@@ -82,8 +82,12 @@ var s = $('input[name="Search"]');
 $("#searchbtn").click(function () {
     var Search = s.val();
 
-    postData("/Search", { Search });
-    setTimeout(SearchUI, 250); //wait 2 seconds
+    if (Search == "") {
+        setTimeout(DiplayUI, 250); //wait 2 seconds
+    } else {
+        postData("/Search", { Search });
+        setTimeout(SearchUI, 250); //wait 2 seconds
+    }
 });
 
 /********************************************fetch********************************************/
@@ -147,16 +151,41 @@ const SearchUI = async () => {
     }
 };
 
+const DiplayUI = async () => {
+    const req = await fetch("/Display");
+    const data = await req.json();
+    console.log(data);
+
+    $("tbody").remove();
+    $("table").append("<tbody></tbody>");
+
+    for (let i = 0; i < data.result.length; i++) {
+        BloodGroup = data.result[i].blood_group.toLowerCase();
+        $("tbody").append("<tr id='adding'></tr>");
+        console.log(data.result[i]);
+
+        for (let j = 0; j < 4; j++) {
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Name + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Place + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Phone + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].blood_group + "</td>");
+            $("#adding").removeAttr("id");
+            $("." + BloodGroup).removeClass("invisible");
+        }
+    }
+};
+
 const DonorRegUI = async () => {
     const req = await fetch("/Donor");
     const data = await req.json();
     console.log(data);
-    if (data.b) {
-        $("#logSuccess").removeClass("invisible");
-        $("#logFailed").addClass("invisible");
-    } else {
-        $("#logSuccess").addClass("invisible");
-        $("#logFailed").removeClass("invisible");
+    let stat = data.stat;
+    $("#DM").remove();
+    $("#DregMass").append("<h1 id='DM'>" + stat + "</h1>");
+    if (stat == "User Registration Successfull!") {
+        setTimeout(Hide, 500);
+        setTimeout(ShowDonor, 1500);
+        setTimeout(background, 1500);
     }
 };
 
@@ -202,6 +231,7 @@ const AddPostUI = async () => {
     let stat = data.stat;
     $("#AM").remove();
     $("#AddMass").append("<h1 id='AM'>" + stat + "</h1>");
+    $("#AM").css("color", "green");
 };
 
 /********************************************Design********************************************/
@@ -212,6 +242,7 @@ $("#i-search").click(function () {
     Hide();
     $("#search").removeClass("invisible");
     background();
+    setTimeout(DiplayUI, 250); //wait 2 seconds
 });
 
 $("#navbar-item").click(function () {
@@ -247,17 +278,17 @@ $("#HFormb").click(function () {
 
 $("#DlFormb").click(function () {
     Hide();
-    $("#Log").removeClass("invisible");
-    $("#DlFormb").addClass("active");
-    $("#Dlogb").removeClass("invisible");
-    $("#Hlogb").addClass("invisible");
-    $("#HlFormb").removeClass("active");
-    $("#logSuccess").addClass("invisible");
-    $("#logFailed").addClass("invisible");
+    ShowDonor();
     background();
 });
 
 $("#addIcon").click(function () {
+    Hide();
+    $("#Post").removeClass("invisible");
+    background();
+});
+
+$("#Add-btn").click(function () {
     Hide();
     $("#addPost").removeClass("invisible");
     background();
@@ -297,6 +328,16 @@ function ShowHospital() {
     $("#Hlogb").removeClass("invisible");
     $("#Dlogb").addClass("invisible");
     $("#DlFormb").removeClass("active");
+    $("#logSuccess").addClass("invisible");
+    $("#logFailed").addClass("invisible");
+}
+
+function ShowDonor() {
+    $("#Log").removeClass("invisible");
+    $("#DlFormb").addClass("active");
+    $("#Dlogb").removeClass("invisible");
+    $("#Hlogb").addClass("invisible");
+    $("#HlFormb").removeClass("active");
     $("#logSuccess").addClass("invisible");
     $("#logFailed").addClass("invisible");
 }

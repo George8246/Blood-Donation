@@ -40,6 +40,8 @@ let donorReg = {};
 
 let searchResult = {};
 
+let Result = {};
+
 //create the app
 var app = express();
 
@@ -150,6 +152,8 @@ app.post("/Donor", function (req, res) {
         /////
         database.query(sqlInsert1, [Name, Age, Gender, BloodType, Phone, userPlace], (err, result) => {
             if (err) {
+                console.log(err + " **ERROR  INSERTING USER** ");
+                donorReg["stat"] = err + " **ERROR  INSERTING USER** ";
             } else {
                 var user_id = result.insertId;
                 //////
@@ -157,18 +161,16 @@ app.post("/Donor", function (req, res) {
                     if (err) {
                         //////
                         database.query(sqlDelete1, [user_id], (err, result2) => {
-                            if (err) {
-                                console.log(err);
-                                donorReg["stat"] = err;
-                            } else {
+                            if (err) console.log(err);
+                            else {
                                 donorReg["stat"] = "Username already exist";
                                 console.log("**DELETED DUE TO DUPLICATION**");
-                                res.send({ message: "Username already exist" });
+                                // res.send({ message: "Username already exist" });
                             }
                         });
                     } else {
                         // console.log({ message: "User Registration Successfull!" });
-                        ///////
+                        donorReg["stat"] = "User Registration Successfull!";
                         database.query(sqlInsert3, [user_id], (err, result1) => {
                             if (err) {
                                 database.query(sqlDelete2, [user_id], (err, result2) => {
@@ -176,10 +178,12 @@ app.post("/Donor", function (req, res) {
                                         console.log(err);
                                     } else {
                                         console.log("**DELETED DUE TO DUPLICATION**");
-                                        res.send({ message: "Username already exist" });
+                                        donorReg["stat"] = "Username already exist";
+                                        // res.send({ message: "Username already exist" });
                                     }
                                 });
                             } else {
+                                donorReg["stat"] = "User Registration Successfull!";
                                 //console.log({ message: "User Registration Successfull!" });
                             }
                         });
@@ -303,8 +307,6 @@ app.post("/LogHospital", function (req, res) {
 });
 
 app.get("/hosLog", function (req, res) {
-    // console.log(donorLogin);
-    console.log("in get");
     res.send(hosLogin);
 });
 /********************************************************************************************************************************************************************/
@@ -342,6 +344,32 @@ app.post("/Search", function (req, res) {
 
 app.get("/search", function (req, res) {
     res.send(searchResult);
+});
+
+app.get("/Display", function (req, res) {
+    DisplayBlood();
+
+    function DisplayBlood() {
+        //query
+        const sqlSelect = "SELECT * FROM blood_stocks";
+
+        //
+        database.query(sqlSelect, (err, result) => {
+            if (err) {
+                console.log("**   SEARCH ERROR   **" + err);
+            }
+
+            if (result.length > 0) {
+                Result["result"] = result;
+                console.log(result);
+                console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
+            } else {
+                // res.send({ message: "NO SEARCH RESULTS FOUND!" });
+            }
+        });
+    }
+
+    res.send(Result);
 });
 
 app.get("/log", function (req, res) {
