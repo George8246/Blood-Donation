@@ -135,34 +135,31 @@ app.post("/Search", function (req, res) {
     function BloodSearchHander(user) {
         //variables
         const blood = user.Search;
+
         //query
-        //console.log(blood + place);
-        const sqlSelect = "SELECT * FROM user_details WHERE userBloodGroup = ?";
+        const sqlSelect = "SELECT * FROM blood_stocks WHERE blood_group = ?";
 
         //
         database.query(sqlSelect, [blood], (err, result) => {
             if (err) {
-                console.log("**   SEARCH ERROR   **" + err);
+                // console.log("**   SEARCH ERROR   **" + err);
             }
 
             if (result.length > 0) {
-                res.send(result);
                 searchResult["result"] = result;
-                console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
+                // console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
             } else {
-                res.send({ message: "NO SEARCH RESULTS FOUND!" });
+                // res.send({ message: "NO SEARCH RESULTS FOUND!" });
             }
         });
     }
 });
 
 app.get("/search", function (req, res) {
-    console.log(searchResult);
     res.send(searchResult);
 });
 
 app.get("/log", function (req, res) {
-    console.log(logedin);
     res.send(logedin);
 });
 

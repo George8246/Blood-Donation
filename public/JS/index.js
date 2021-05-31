@@ -42,6 +42,8 @@ $("#DlFormb").click(function () {
     $("#Dlogb").removeClass("invisible");
     $("#Hlogb").addClass("invisible");
     $("#HlFormb").removeClass("active");
+    $("#logSuccess").addClass("invisible");
+    $("#logFailed").addClass("invisible");
 });
 
 $("#addIcon").click(function () {
@@ -57,6 +59,8 @@ $("#HlFormb").click(function () {
     $("#Hlogb").removeClass("invisible");
     $("#Dlogb").addClass("invisible");
     $("#DlFormb").removeClass("active");
+    $("#logSuccess").addClass("invisible");
+    $("#logFailed").addClass("invisible");
 });
 
 $("#log-btn").click(function () {

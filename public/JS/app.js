@@ -64,7 +64,7 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
-    setTimeout(LogInUI, 250); //wait 2 seconds
+    setTimeout(DonorLogInUI, 250); //wait 2 seconds
 });
 
 $("#Hlogb").click(function () {
@@ -79,6 +79,7 @@ $("#searchbtn").click(function () {
     var Search = s.val();
 
     postData("/Search", { Search });
+    setTimeout(SearchUI, 250); //wait 2 seconds
 });
 
 const postData = async (url, data) => {
@@ -93,7 +94,7 @@ const postData = async (url, data) => {
     });
 };
 
-const LogInUI = async () => {
+const DonorLogInUI = async () => {
     const req = await fetch("/DonorLog");
     const data = await req.json();
     console.log(data);
@@ -103,5 +104,31 @@ const LogInUI = async () => {
     } else {
         $("#logSuccess").addClass("invisible");
         $("#logFailed").removeClass("invisible");
+    }
+};
+
+const SearchUI = async () => {
+    const req = await fetch("/search");
+    const data = await req.json();
+    console.log(data.result.length);
+
+    // $("tr").addClass("invisible");
+    // $(".tableHeader").removeClass("invisible");
+    $("tbody").remove();
+    $("table").append("<tbody></tbody>");
+
+    for (let i = 0; i < data.result.length; i++) {
+        BloodGroup = data.result[i].blood_group.toLowerCase();
+        $("tbody").append("<tr id='adding'></tr>");
+        console.log(data.result[i]);
+
+        for (let j = 0; j < 4; j++) {
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Name + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Place + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Phone + "</td>");
+            $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].blood_group + "</td>");
+            $("#adding").removeAttr("id");
+            $("." + BloodGroup).removeClass("invisible");
+        }
     }
 };
