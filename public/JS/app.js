@@ -57,6 +57,7 @@ $("#HAddb").click(function () {
     Place = AdduserPlace.val();
     AddType = HAddBloodType.val();
     postData("/AddHospital", { Name, Phone, Place, AddType });
+    setTimeout(AddPostUI, 250); //wait 2 seconds
 });
 
 var lusername = $('input[name="username"]');
@@ -163,4 +164,13 @@ const HospitalRegUI = async () => {
     let stat = data.stat;
     $("#RM").remove();
     $("#regMass").append("<h1 id='RM'>" + stat + "</h1>");
+};
+
+const AddPostUI = async () => {
+    const req = await fetch("/AddHos");
+    const data = await req.json();
+    console.log(data);
+    let stat = data.stat;
+    $("#AM").remove();
+    $("#AddMass").append("<h1 id='AM'>" + stat + "</h1>");
 };
