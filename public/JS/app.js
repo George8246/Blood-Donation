@@ -64,6 +64,7 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
+    setTimeout(LogInUI, 250); //wait 2 seconds
 });
 
 $("#Hlogb").click(function () {
@@ -92,8 +93,15 @@ const postData = async (url, data) => {
     });
 };
 
-// const updateUI = async () => {
-//     const req = await fetch("/all");
-//     const data = await req.json();
-//     console.log(data);
-// };
+const LogInUI = async () => {
+    const req = await fetch("/DonorLog");
+    const data = await req.json();
+    console.log(data);
+    if (data.b) {
+        $("#logSuccess").removeClass("invisible");
+        $("#logFailed").addClass("invisible");
+    } else {
+        $("#logSuccess").addClass("invisible");
+        $("#logFailed").removeClass("invisible");
+    }
+};
