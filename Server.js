@@ -42,6 +42,8 @@ let searchResult = {};
 
 let Result = {};
 
+let Mod = {};
+
 //create the app
 var app = express();
 
@@ -310,6 +312,55 @@ app.get("/hosLog", function (req, res) {
     res.send(hosLogin);
 });
 /********************************************************************************************************************************************************************/
+
+app.post("/Modify", function (req, res) {
+    let data = req.body;
+
+    console.log(data);
+
+    ModifyPost(data);
+
+    //module export
+    function ModifyPost(user) {
+        //variables
+        const blood = user.Search;
+        const newblood = user.newSearch;
+        const Name = user.Name;
+        const newName = user.newName;
+        const Place = user.Place;
+        const newPlace = user.newPlace;
+        const Phone = user.Phone;
+        const newPhone = user.newPhone;
+        const type = user.AddType;
+        const value = user.value;
+        
+        //query
+        const sqlSelect = "SELECT * FROM blood_stocks WHERE Name = ? AND Place = ? AND Phone = ? AND blood_group = ?";
+        const sqlUpdate = "UDPATE blood_stocks SET ? = ? WHERE ?";
+        //
+        database.query(sqlSelect, [Name,Place,Phone,blood], (err, result) => {
+            if (err) {
+                console.log("**   Not Found   **" + err);
+                mod["stat"] = "**   Not Found **";
+            }
+
+            else {
+                if (result.length > 0) {
+                    database.query(sqlUpdate, [value, , sqlSelect], (err, result) => {
+                        if (err) { console.log("Modification ERROR"); mod["stat"] = "Modification ERROR"; }
+                        else {
+                            mod["stat"] = "Modified";
+                        }
+                    });
+                    // console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
+                } else {
+                    mod["stat"] = "Modified ERROR";
+                    // res.send({ message: "NO SEARCH RESULTS FOUND!" });
+                }
+            }
+        });
+    }
+});
 
 app.post("/Search", function (req, res) {
     let data = req.body;
