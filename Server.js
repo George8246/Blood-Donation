@@ -30,6 +30,8 @@ let hosLogin = {
     b: false,
 };
 
+let hosReg = {};
+
 let donorReg = {};
 
 let searchResult = {};
@@ -64,7 +66,57 @@ app.post("/Hospital", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    HospitalRegisterHandler(data, database);
+    //var popup =require('popups')
+
+    HospitalRegister(data);
+
+    //module export
+    function HospitalRegister(user) {
+        //variables
+        const hosName = user.Name;
+        const hosPhone = user.Phone;
+        const hosAddress = user.Place;
+        const hosUserName = user.UName;
+        const hosPassword = user.Pass;
+
+        //query
+        const sqlInsert1 = "INSERT INTO hos_details (hosName,hosPhone,hosAddress) VALUES (?,?,?)";
+
+        const sqlInsert2 = "INSERT INTO hos_login (hosID,hosName,password) VALUES (?,?,?)";
+
+        const sqlDelete = "DELETE  FROM hos_details WHERE hosID= ?";
+
+        //s
+        database.query(sqlInsert1, [hosName, hosPhone, hosAddress], (err, result) => {
+            if (err) {
+                console.log(err + "THAT'S AN ERROR!!!");
+                hosReg["stat"] = err + "THAT'S AN ERROR!!!";
+            } else {
+                var hosID = result.insertId;
+                //
+                database.query(sqlInsert2, [hosID, hosUserName, hosPassword], (err, result1) => {
+                    if (err) {
+                        //
+                        console.log(err);
+                        database.query(sqlDelete, [hosID], (err, result2) => {
+                            if (err) console.log(err);
+                            else {
+                                console.log("user already exists!");
+                                hosReg["stat"] = "user already exists!";
+                            }
+                        });
+                    } else {
+                        console.log("Hospital Registered Successfully");
+                        hosReg["stat"] = "Hospital Registered Successfully";
+                    }
+                });
+            }
+        });
+    }
+});
+
+app.get("/hosReg", function (req, res) {
+    res.send(hosReg);
 });
 
 app.post("/Donor", function (req, res) {
@@ -93,24 +145,19 @@ app.post("/Donor", function (req, res) {
 
         const sqlDelete2 = "DELETE FROM user_health WHERE user_id=?";
         /////
-        database.query(sqlInsert1, [Name,Age,Gender,BloodType,Phone, userPlace], (err, result) => {
+        database.query(sqlInsert1, [Name, Age, Gender, BloodType, Phone, userPlace], (err, result) => {
             if (err) {
-                console.log(err + " **ERROR  INSERTING USER** ");
-                donorReg[" **ERROR  INSERTING USER** "] = err;
             } else {
                 var user_id = result.insertId;
                 //////
                 database.query(sqlInsert2, [user_id, userName, Password], (err, result1) => {
                     if (err) {
-                        console.log(err + "**ERROR INSERTING TO USER-LOGIN**");
-                        donorReg["**ERROR INSERTING TO USER-LOGIN**"] = err;
                         //////
                         database.query(sqlDelete1, [user_id], (err, result2) => {
                             if (err) {
                                 console.log(err);
                                 donorReg["error"] = err;
-                            }
-                            else {
+                            } else {
                                 donorReg["Username already exist"] = err;
                                 console.log("**DELETED DUE TO DUPLICATION**");
                                 res.send({ message: "Username already exist" });
@@ -118,27 +165,19 @@ app.post("/Donor", function (req, res) {
                         });
                     } else {
                         // console.log({ message: "User Registration Successfull!" });
-                        donorReg["**USER REGISTRATION SUCCESSFULL**"] = true;
-                        console.log("**USER REGISTRATION SUCCESSFULL**");
                         ///////
                         database.query(sqlInsert3, [user_id], (err, result1) => {
                             if (err) {
-                                console.log(err + "**ERROR INSERTING TO USER-LOGIN**");
-                                donorReg["**ERROR INSERTING TO USER-LOGIN**"] = err;
                                 database.query(sqlDelete2, [user_id], (err, result2) => {
                                     if (err) {
                                         console.log(err);
-                                        donorReg[" **ERROR  Deleting USER** "] = err;
-                                    }
-                                    else {
+                                    } else {
                                         console.log("**DELETED DUE TO DUPLICATION**");
                                         res.send({ message: "Username already exist" });
                                     }
                                 });
                             } else {
                                 //console.log({ message: "User Registration Successfull!" });
-                                donorLogin["**USER REGISTRATION SUCCESSFULL**"] = err;
-                                console.log("**USER REGISTRATION SUCCESSFULL**");
                             }
                         });
                     }
@@ -149,8 +188,6 @@ app.post("/Donor", function (req, res) {
 });
 
 app.get("/Donor", function (req, res) {
-    // console.log(donorLogin);
-    console.log("in get");
     res.send(donorReg);
 });
 
@@ -211,10 +248,10 @@ app.post("/LogHospital", function (req, res) {
         const userName = user.LogName;
         const password = user.LogPass;
 
-    //query
+        //query
         const sqlSelect = "SELECT * FROM hos_login WHERE hosName= ? AND password=?";
 
-    //
+        //
         database.query(sqlSelect, [userName, password], (err, result) => {
             if (err) {
                 // console.log({ err: err });
@@ -245,10 +282,10 @@ app.post("/Search", function (req, res) {
 
     console.log(data);
 
-    BloodSearchHander(data, database);
+    BloodSearch(data, database);
 
     //module export
-    function BloodSearchHander(user) {
+    function BloodSearch(user) {
         //variables
         const blood = user.Search;
 

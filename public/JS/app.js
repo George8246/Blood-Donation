@@ -43,6 +43,7 @@ $("#Hregb").click(function () {
     UName = Husername.val();
     Pass = Hpassword.val();
     postData("/Hospital", { Name, Phone, Place, UName, Pass });
+    setTimeout(HospitalRegUI, 250); //wait 2 seconds
 });
 
 var AdduserFName = $('input[name="HAddFName"]');
@@ -65,18 +66,14 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
-<<<<<<< HEAD
     setTimeout(DonorLogInUI, 250); //wait 2 seconds
-=======
-    setTimeout(DonorUI, 250); //wait 2 seconds
->>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
 });
 
 $("#Hlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogHospital", { LogName, LogPass });
-    setTimeout(HospitalUI, 250);
+    setTimeout(HospitalLogInUI, 250);
 });
 
 var s = $('input[name="Search"]');
@@ -100,11 +97,7 @@ const postData = async (url, data) => {
     });
 };
 
-<<<<<<< HEAD
 const DonorLogInUI = async () => {
-=======
-const DonorUI = async () => {
->>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
     const req = await fetch("/DonorLog");
     const data = await req.json();
     console.log(data);
@@ -117,14 +110,11 @@ const DonorUI = async () => {
     }
 };
 
-<<<<<<< HEAD
 const SearchUI = async () => {
     const req = await fetch("/search");
     const data = await req.json();
     console.log(data.result.length);
 
-    // $("tr").addClass("invisible");
-    // $(".tableHeader").removeClass("invisible");
     $("tbody").remove();
     $("table").append("<tbody></tbody>");
 
@@ -141,7 +131,9 @@ const SearchUI = async () => {
             $("#adding").removeAttr("id");
             $("." + BloodGroup).removeClass("invisible");
         }
-=======
+    }
+};
+
 const DonorRegUI = async () => {
     const req = await fetch("/Donor");
     const data = await req.json();
@@ -155,7 +147,7 @@ const DonorRegUI = async () => {
     }
 };
 
-const HospitalUI = async () => {
+const HospitalLogInUI = async () => {
     const req = await fetch("/hosLog");
     const data = await req.json();
     console.log(data);
@@ -165,6 +157,14 @@ const HospitalUI = async () => {
     } else {
         $("#logSuccess").addClass("invisible");
         $("#logFailed").removeClass("invisible");
->>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
     }
+};
+
+const HospitalRegUI = async () => {
+    const req = await fetch("/hosReg");
+    const data = await req.json();
+    console.log(data);
+    let stat = data.stat;
+    $("#RM").remove();
+    $("#regMass").append("<h1 id='RM'>" + stat + "</h1>");
 };
