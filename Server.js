@@ -30,6 +30,10 @@ let hosLogin = {
     b: false,
 };
 
+let addPost = {
+    stat: "error",
+};
+
 let hosReg = {};
 
 let donorReg = {};
@@ -236,7 +240,36 @@ app.get("/DonorLog", function (req, res) {
 app.post("/AddHospital", function (req, res) {
     let data = req.body;
 
-    AddPostHander(data, database);
+    AddPost(data);
+
+    //module export
+    function AddPost(user) {
+        //variables
+        const Name = user.Name;
+        const Place = user.Place;
+        const Phone = user.Phone;
+        const type = user.AddType;
+
+        //query
+        const sqlInsert1 = "INSERT INTO blood_stocks (Name,Place,Phone,blood_group) VALUES (?,?,?,?)";
+
+        /////
+        database.query(sqlInsert1, [Name, Place, Phone, type], (err, result) => {
+            if (err) {
+                console.log({ err: err });
+                console.log("**ERROR**");
+                addPost["stat"] = err;
+            } else {
+                var b_id = result.insertId;
+                console.log("ADDED");
+                addPost["stat"] = "Added";
+            }
+        });
+    }
+});
+
+app.get("/AddHos", function (req, res) {
+    res.send(addPost);
 });
 
 /*********************************************************************************************************************************************************************/
