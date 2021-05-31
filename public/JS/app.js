@@ -50,20 +50,31 @@ var HMoFName = $('input[name="HMoFName"]');
 var HMoPhone = $('input[name="HMoPhone"]');
 var HMoPlace = $('input[name="HMoPlace"]');
 var HMoBloodType = $('input[name="HMoBloodType"]');
+var HMBloodType = $('input[name="HMBloodType"]');
 
-$("#HModifyb").click(function () {
+$("#HMOb").click(function () {
     newName = HMoFName.val();
     newPhone = HMoPhone.val();
     newPlace = HMoPlace.val();
     newSearch = HMoBloodType.val();
-    postData("/Modify", { newName, newPhone, newPlace, newSearch });
+    N = HMBloodType.val();
+    value = $("#CM").val();
+    postData("/Modify", { newName, newPhone, newPlace, newSearch, value, N });
     setTimeout(ModifyPostUI, 250);
 });
 
-$("#HMOb").click(function () {
-    value = $("#CM").val();
-    postData("/Modify", { value });
-    setTimeout(optionPostUI, 250);
+var HDFName = $('input[name="HDFName"]');
+var HDPhone = $('input[name="HDPhone"]');
+var HDPlace = $('input[name="HDPlace"]');
+var HDBloodType = $('input[name="HDBloodType"]');
+
+$("#HDeleteb").click(function () {
+    Name = HDFName.val();
+    Phone = HDPhone.val();
+    Place = HDPlace.val();
+    BT = HDBloodType.val();
+    postData("/Delete", { Name, Phone, Place, BT });
+    setTimeout(DeleteUI, 250);
 });
 
 var AdduserFName = $('input[name="HAddFName"]');
@@ -258,27 +269,23 @@ const ModifyPostUI = async () => {
     console.log(data);
     let stat = data.stat;
     $("#MM").remove();
-    $("#ModifyMass").append("<h1 id='MM'>" + stat + "</h1>");
-    $("#AM").css("color", "green");
-    if (data.b) {
-        Hide();
-        ShowModify();
-        background();
+    $("#MODMass").append("<h1 id='MM'>" + stat + "</h1>");
+    $("#MM").css("color", "red");
+    if (stat == "Deleted") {
+        setTimeout(DiplaySearch, 500);
     }
 };
 
-const optionPostUI = async () => {
-    const req = await fetch("/ModifyG");
+const DeleteUI = async () => {
+    const req = await fetch("/DeleteG");
     const data = await req.json();
     console.log(data);
     let stat = data.stat;
-    $("#MM").remove();
-    $("#ModifyMass").append("<h1 id='MM'>" + stat + "</h1>");
-    $("#AM").css("color", "green");
-    if (data.b) {
-        Hide();
-        ShowModify();
-        background();
+    $("#DM").remove();
+    $("#DeleteMass").append("<h1 id='DM'>" + stat + "</h1>");
+    $("#DM").css("color", "red");
+    if (stat == "Deleted Success") {
+        setTimeout(DiplaySearch, 500);
     }
 };
 
@@ -287,10 +294,7 @@ const optionPostUI = async () => {
 var sections = document.getElementsByClassName("section");
 
 $("#i-search").click(function () {
-    Hide();
-    $("#search").removeClass("invisible");
-    background();
-    setTimeout(DiplayUI, 250); //wait 2 seconds
+    DiplaySearch();
 });
 
 $("#navbar-item").click(function () {
@@ -345,6 +349,7 @@ $("#Add-btn").click(function () {
 $("#Modify-btn").click(function () {
     Hide();
     $("#ModifyPost").removeClass("invisible");
+    ShowModify();
     background();
 });
 
@@ -404,4 +409,11 @@ function ShowDonor() {
 
 function ShowModify() {
     $("#ChooseModifyPost").removeClass("invisible");
+}
+
+function DiplaySearch() {
+    Hide();
+    $("#search").removeClass("invisible");
+    background();
+    setTimeout(DiplayUI, 250); //wait 2 seconds
 }

@@ -44,6 +44,8 @@ let Result = {};
 
 let Mod = {};
 
+let Del = {};
+
 //create the app
 var app = express();
 
@@ -313,53 +315,94 @@ app.get("/hosLog", function (req, res) {
 });
 /********************************************************************************************************************************************************************/
 
-app.post("/Modify", function (req, res) {
+app.post("/Delete", function (req, res) {
     let data = req.body;
 
-    console.log(data);
+    DeletePost(data);
+
+    //module export
+    function DeletePost(user) {
+        //variables
+        const blood = user.BT;
+        const Name = user.Name;
+        const Place = user.Place;
+        const Phone = user.Phone;
+
+        //query
+        const sqlSelect = "SELECT * FROM blood_stocks WHERE Name = ? AND Place = ? AND Phone = ? AND blood_group = ?";
+        const sqlDelete = "DELETE FROM blood_stocks WHERE Name = ? AND Place = ? AND Phone = ? AND blood_group = ?";
+        //
+        database.query(sqlSelect, [Name, Place, Phone, blood], (err, result) => {
+            if (err) {
+                console.log("**   Not Found   **" + err);
+                Del["stat"] = "Not Found";
+            } else {
+                if (result.length > 0) {
+                    database.query(sqlDelete, [Name, Place, Phone, blood], (err, result2) => {
+                        if (err) {
+                            console.log(err + "DELETION ERROR");
+                            Del["stat"] = "DELETION ERROR";
+                        } else {
+                            Del["stat"] = "Deleted Success";
+                        }
+                    });
+                } else {
+                    Del["stat"] = "DELETED ERROR";
+                }
+            }
+        });
+    }
+});
+
+app.get("/DeleteG", function (req, res) {
+    res.send(Del);
+});
+
+app.post("/Modify", function (req, res) {
+    let data = req.body;
 
     ModifyPost(data);
 
     //module export
     function ModifyPost(user) {
         //variables
-        const blood = user.Search;
-        const newblood = user.newSearch;
-        const Name = user.Name;
-        const newName = user.newName;
-        const Place = user.Place;
-        const newPlace = user.newPlace;
-        const Phone = user.Phone;
-        const newPhone = user.newPhone;
-        const type = user.AddType;
+        const blood = user.newSearch;
+        const Name = user.newName;
+        const Place = user.newPlace;
+        const Phone = user.newPhone;
         const value = user.value;
-        
+        const NewValue = user.N;
+
         //query
         const sqlSelect = "SELECT * FROM blood_stocks WHERE Name = ? AND Place = ? AND Phone = ? AND blood_group = ?";
-        const sqlUpdate = "UDPATE blood_stocks SET ? = ? WHERE ?";
+        const sqlUpdate = "UPDATE blood_stocks SET " + value + " = ? WHERE Name = ? AND Place = ? AND Phone = ? AND blood_group = ?";
         //
-        database.query(sqlSelect, [Name,Place,Phone,blood], (err, result) => {
+        database.query(sqlSelect, [Name, Place, Phone, blood], (err, result) => {
             if (err) {
                 console.log("**   Not Found   **" + err);
-                mod["stat"] = "**   Not Found **";
-            }
-
-            else {
+                Mod["stat"] = "Not Found";
+            } else {
                 if (result.length > 0) {
-                    database.query(sqlUpdate, [value, , sqlSelect], (err, result) => {
-                        if (err) { console.log("Modification ERROR"); mod["stat"] = "Modification ERROR"; }
-                        else {
-                            mod["stat"] = "Modified";
+                    database.query(sqlUpdate, [NewValue, Name, Place, Phone, blood], (err, result) => {
+                        if (err) {
+                            console.log(err + "Modification ERROR");
+                            Mod["stat"] = "Modification ERROR";
+                        } else {
+                            Mod["stat"] = "Modified";
                         }
                     });
                     // console.log("**SEARCH RESULTS FOUND AND SEND TO FRONT END**");
                 } else {
-                    mod["stat"] = "Modified ERROR";
+                    Mod["stat"] = "Modified ERROR";
                     // res.send({ message: "NO SEARCH RESULTS FOUND!" });
                 }
             }
         });
     }
+});
+
+app.get("/modifyG", function (req, res) {
+    res.send(Mod);
 });
 
 app.post("/Search", function (req, res) {
