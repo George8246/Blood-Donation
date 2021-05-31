@@ -146,7 +146,6 @@ const SearchUI = async () => {
             $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Phone + "</td>");
             $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].blood_group + "</td>");
             $("#adding").removeAttr("id");
-            $("." + BloodGroup).removeClass("invisible");
         }
     }
 };
@@ -170,7 +169,6 @@ const DiplayUI = async () => {
             $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].Phone + "</td>");
             $("#adding").append("<td class=" + BloodGroup + ">" + data.result[i].blood_group + "</td>");
             $("#adding").removeAttr("id");
-            $("." + BloodGroup).removeClass("invisible");
         }
     }
 };
