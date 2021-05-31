@@ -26,6 +26,12 @@ let donorLogin = {
     b: false,
 };
 
+let hosLogin = {
+    b: false,
+};
+
+let donorReg = {};
+
 let searchResult = {};
 
 //create the app
@@ -65,7 +71,87 @@ app.post("/Donor", function (req, res) {
     let data = req.body;
     console.log(data);
 
-    DonorRegisteration(data, database);
+    DonorRegister(data);
+    function DonorRegister(user) {
+        const Name = user.Name;
+        const userPlace = user.Place;
+        const userName = user.UName;
+        const Password = user.Pass;
+        const Age = user.Age;
+        const Gender = user.Gender;
+        const BloodType = user.BloodType;
+        const Phone = user.Phone;
+
+        //query
+        const sqlInsert1 = "INSERT INTO user_details (userFName,userAge,userGender,userBloodGroup,userPhone,userPlace) VALUES (?,?,?,?,?,?)";
+
+        const sqlInsert2 = "INSERT INTO user_login (user_id,userName,userPassword) VALUES (?,?,?)";
+
+        const sqlInsert3 = "INSERT INTO user_health (user_id) VALUES(?)";
+
+        const sqlDelete1 = "DELETE  FROM user_details WHERE user_id= ?";
+
+        const sqlDelete2 = "DELETE FROM user_health WHERE user_id=?";
+        /////
+        database.query(sqlInsert1, [Name,Age,Gender,BloodType,Phone, userPlace], (err, result) => {
+            if (err) {
+                console.log(err + " **ERROR  INSERTING USER** ");
+                donorReg[" **ERROR  INSERTING USER** "] = err;
+            } else {
+                var user_id = result.insertId;
+                //////
+                database.query(sqlInsert2, [user_id, userName, Password], (err, result1) => {
+                    if (err) {
+                        console.log(err + "**ERROR INSERTING TO USER-LOGIN**");
+                        donorReg["**ERROR INSERTING TO USER-LOGIN**"] = err;
+                        //////
+                        database.query(sqlDelete1, [user_id], (err, result2) => {
+                            if (err) {
+                                console.log(err);
+                                donorReg["error"] = err;
+                            }
+                            else {
+                                donorReg["Username already exist"] = err;
+                                console.log("**DELETED DUE TO DUPLICATION**");
+                                res.send({ message: "Username already exist" });
+                            }
+                        });
+                    } else {
+                        // console.log({ message: "User Registration Successfull!" });
+                        donorReg["**USER REGISTRATION SUCCESSFULL**"] = true;
+                        console.log("**USER REGISTRATION SUCCESSFULL**");
+                        ///////
+                        database.query(sqlInsert3, [user_id], (err, result1) => {
+                            if (err) {
+                                console.log(err + "**ERROR INSERTING TO USER-LOGIN**");
+                                donorReg["**ERROR INSERTING TO USER-LOGIN**"] = err;
+                                database.query(sqlDelete2, [user_id], (err, result2) => {
+                                    if (err) {
+                                        console.log(err);
+                                        donorReg[" **ERROR  Deleting USER** "] = err;
+                                    }
+                                    else {
+                                        console.log("**DELETED DUE TO DUPLICATION**");
+                                        res.send({ message: "Username already exist" });
+                                    }
+                                });
+                            } else {
+                                //console.log({ message: "User Registration Successfull!" });
+                                donorLogin["**USER REGISTRATION SUCCESSFULL**"] = err;
+                                console.log("**USER REGISTRATION SUCCESSFULL**");
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    }
+});
+
+app.get("/Donor", function (req, res) {
+    // console.log(donorLogin);
+    console.log("in get");
+    res.send(donorReg);
 });
 
 app.post("/LogDonor", function (req, res) {
@@ -120,7 +206,37 @@ app.post("/AddHospital", function (req, res) {
 app.post("/LogHospital", function (req, res) {
     let data = req.body;
 
-    HospitalLoginHandler(data, database);
+    HospitalLogin(data);
+    function HospitalLogin(user) {
+        const userName = user.LogName;
+        const password = user.LogPass;
+
+    //query
+        const sqlSelect = "SELECT * FROM hos_login WHERE hosName= ? AND password=?";
+
+    //
+        database.query(sqlSelect, [userName, password], (err, result) => {
+            if (err) {
+                // console.log({ err: err });
+                hosLogin["b"] = false;
+                console.log("**ERROR**");
+            }
+            if (result.length > 0) {
+                console.log("**RESULT SENT TO FRONT END**");
+                hosLogin["b"] = true;
+            } else {
+                // console.log({ message: "wrong username/password combination!" });
+                hosLogin["b"] = false;
+                console.log("**INVALID COMBINATION**");
+            }
+        });
+    }
+});
+
+app.get("/hosLog", function (req, res) {
+    // console.log(donorLogin);
+    console.log("in get");
+    res.send(hosLogin);
 });
 /********************************************************************************************************************************************************************/
 
