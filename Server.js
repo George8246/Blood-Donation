@@ -147,6 +147,8 @@ app.post("/Donor", function (req, res) {
         /////
         database.query(sqlInsert1, [Name, Age, Gender, BloodType, Phone, userPlace], (err, result) => {
             if (err) {
+                console.log(err + " **ERROR  INSERTING USER** ");
+                donorReg["stat"] = err + " **ERROR  INSERTING USER** ";
             } else {
                 var user_id = result.insertId;
                 //////
@@ -154,18 +156,16 @@ app.post("/Donor", function (req, res) {
                     if (err) {
                         //////
                         database.query(sqlDelete1, [user_id], (err, result2) => {
-                            if (err) {
-                                console.log(err);
-                                donorReg["error"] = err;
-                            } else {
-                                donorReg["Username already exist"] = err;
+                            if (err) console.log(err);
+                            else {
+                                donorReg["stat"] = "Username already exist";
                                 console.log("**DELETED DUE TO DUPLICATION**");
-                                res.send({ message: "Username already exist" });
+                                // res.send({ message: "Username already exist" });
                             }
                         });
                     } else {
                         // console.log({ message: "User Registration Successfull!" });
-                        ///////
+                        donorReg["stat"] = "User Registration Successfull!";
                         database.query(sqlInsert3, [user_id], (err, result1) => {
                             if (err) {
                                 database.query(sqlDelete2, [user_id], (err, result2) => {
@@ -173,10 +173,12 @@ app.post("/Donor", function (req, res) {
                                         console.log(err);
                                     } else {
                                         console.log("**DELETED DUE TO DUPLICATION**");
-                                        res.send({ message: "Username already exist" });
+                                        donorReg["stat"] = "Username already exist";
+                                        // res.send({ message: "Username already exist" });
                                     }
                                 });
                             } else {
+                                donorReg["stat"] = "User Registration Successfull!";
                                 //console.log({ message: "User Registration Successfull!" });
                             }
                         });

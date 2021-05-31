@@ -138,13 +138,9 @@ const DonorRegUI = async () => {
     const req = await fetch("/Donor");
     const data = await req.json();
     console.log(data);
-    if (data.b) {
-        $("#logSuccess").removeClass("invisible");
-        $("#logFailed").addClass("invisible");
-    } else {
-        $("#logSuccess").addClass("invisible");
-        $("#logFailed").removeClass("invisible");
-    }
+    let stat = data.stat;
+    $("#DM").remove();
+    $("#DregMass").append("<h1 id='DM'>" + stat + "</h1>");
 };
 
 const HospitalLogInUI = async () => {
