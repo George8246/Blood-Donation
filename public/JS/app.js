@@ -27,6 +27,7 @@ $("#Dregb").click(function () {
     UName = Dusername.val();
     Pass = Dpassword.val();
     postData("/Donor", { Name, Age, Gender, BloodType, Email, Phone, Place, UName, Pass });
+    setTimeout(DonorRegUI, 250); //wait 2 seconds
 });
 
 var HuserFName = $('input[name="HuserFName"]');
@@ -64,13 +65,18 @@ $("#Dlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogDonor", { LogName, LogPass });
+<<<<<<< HEAD
     setTimeout(DonorLogInUI, 250); //wait 2 seconds
+=======
+    setTimeout(DonorUI, 250); //wait 2 seconds
+>>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
 });
 
 $("#Hlogb").click(function () {
     var LogName = lusername.val();
     var LogPass = lpassword.val();
     postData("/LogHospital", { LogName, LogPass });
+    setTimeout(HospitalUI, 250);
 });
 
 var s = $('input[name="Search"]');
@@ -94,7 +100,11 @@ const postData = async (url, data) => {
     });
 };
 
+<<<<<<< HEAD
 const DonorLogInUI = async () => {
+=======
+const DonorUI = async () => {
+>>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
     const req = await fetch("/DonorLog");
     const data = await req.json();
     console.log(data);
@@ -107,6 +117,7 @@ const DonorLogInUI = async () => {
     }
 };
 
+<<<<<<< HEAD
 const SearchUI = async () => {
     const req = await fetch("/search");
     const data = await req.json();
@@ -130,5 +141,30 @@ const SearchUI = async () => {
             $("#adding").removeAttr("id");
             $("." + BloodGroup).removeClass("invisible");
         }
+=======
+const DonorRegUI = async () => {
+    const req = await fetch("/Donor");
+    const data = await req.json();
+    console.log(data);
+    if (data.b) {
+        $("#logSuccess").removeClass("invisible");
+        $("#logFailed").addClass("invisible");
+    } else {
+        $("#logSuccess").addClass("invisible");
+        $("#logFailed").removeClass("invisible");
+    }
+};
+
+const HospitalUI = async () => {
+    const req = await fetch("/hosLog");
+    const data = await req.json();
+    console.log(data);
+    if (data.b) {
+        $("#logSuccess").removeClass("invisible");
+        $("#logFailed").addClass("invisible");
+    } else {
+        $("#logSuccess").addClass("invisible");
+        $("#logFailed").removeClass("invisible");
+>>>>>>> 536dd90f1034794083ecaffc1d034f0e7e541ffe
     }
 };
